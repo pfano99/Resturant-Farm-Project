@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+
+
+{% block navigation %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for( 'Main.home' ) }}">NextFarm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if current_user == worker %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href=" {{ url_for('Worker.account') }} ">DashBoard</a>
+                </li>
+           {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Product.add_product') }} ">Register Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Auth.logout') }} ">Logout</a>
+          </li>
+        </ul>
+        <form class="d-flex"  action ="" method = 'POST'>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
+{% endblock navigation %}
+
+
+
+{% block body %}
+
+<div>
+    <form action="" method="POST" class="row g-3">
+        {{ form.hidden_tag() }}
+
+        <div class="col-md-12">
+            {{ form.product_name.label(class="form-label") }}
+            {{ form.product_name(class="form-control") }}
+
+            {% if form.product_name.errors %}
+                {% for error in form.product_name.errors %}
+                    <span> {{ error }} </span> 
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form.price.label(class="form-label") }}
+            {{ form.price(class="form-control") }} 
+
+            {% if form.price.errors %}
+                {% for error in form.price.errors %}
+                    <span> {{ error }} </span>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.stock_count.label(class="form-label") }}
+            {{ form.stock_count(class="form-control") }} 
+
+            {% if form.stock_count.errors %}
+                {% for error in form.stock_count.errors %}
+                    <span> {{ error }} </span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        
+        <div class="col-md-12">
+            {{ form.category.label(class="form-label") }}
+            {{ form.category(class="form-control  form-select") }}
+
+            {% if form.category.errors %}
+                {% for error in form.category.errors %}
+                    <span> {{ error }} </span>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {{ form.submit(class="btn btn-outline-primary") }}
+        
+    </form>
+</div>
+
+
+{% endblock body %}
+

@@ -1,0 +1,183 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block navigation %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for( 'Main.home' ) }}">NextFarm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if current_user == worker %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href=" {{ url_for('Worker.account') }} ">DashBoard</a>
+                </li>
+           {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Auth.logout') }} ">Logout</a>
+          </li>
+        </ul>
+        <form class="d-flex"  action ="" method = 'POST'>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
+{% endblock navigation %}
+
+
+{% block body %}
+
+<!-- Advanced Search section -->
+<div>
+  <fieldset  class="border p-2 form-group">
+  <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
+      {{ form.hidden_tag() }}
+
+      
+
+      <div class="col-md-8">
+          {{ form.product_name.label(class="form-label") }}
+          {{ form.product_name(class="form-control") }}
+      
+          {% if form.product_name.errors %}
+              {% for error in form.product_name.errors %}
+                  <span> {{ error }} </span> <br>
+              {% endfor %}
+          {% endif %}
+      </div>
+
+      <div class="col-4">
+        {{ form.province.label(class="form-label") }}
+        {{ form.province(class="form-select") }} 
+
+        {% if form.province.errors %}
+            {% for error in form.province.errors %}
+                <span> {{ error }} </span> <br>
+            {% endfor %}
+        {% endif %}
+      </div>  
+
+      
+
+      <div class="col-md-4">
+          {{ form.min_price.label(class="form-label") }}
+          {{ form.min_price(class="form-control") }}
+      
+          {% if form.min_price.errors %}
+              {% for error in form.min_price.errors %}
+                  <span> {{ error }} </span> <br>
+              {% endfor %}
+          {% endif %}
+      </div>
+      <div class="col-md-4">
+          {{ form.max_price.label(class="form-label") }}
+          {{ form.max_price(class="form-control") }}
+
+          {% if form.max_price.errors %}
+              {% for error in form.max_price.errors %}
+                  <span> {{ error }} </span> <br>
+              {% endfor %}
+          {% endif %}
+      </div>
+
+      <div class="col-md-4">
+          {{ form.min_stock.label(class="form-label") }}
+          {{ form.min_stock(class="form-control") }}
+
+          {% if form.min_stock.errors %}
+              {% for error in form.min_stock.errors %}
+                  <span> {{ error }} </span> <br>
+              {% endfor %}
+          {% endif %}
+      </div>
+
+      <div class="col-4">
+        {{ form.submit(class="btn btn-primary") }}
+      </div>      
+
+      
+  </form>
+      
+  </fieldset>
+</div>
+
+<!-- End of Advanced Search section -->
+
+<div>
+  {% for product in products.items|batch(4) %}
+      <div class="row">
+        {% for col in product%}
+
+          <div class="col-md-3">
+
+            <div class="card border-0 transform-on-hover">
+              <a href=" {{ url_for('Farmer.farmer_profile', username=col.farmer.username) }} ">
+                <img src="{{ url_for('static', filename='profile_pictures/' + col.farmer.profile_picture ) }}" alt="{{ col.farmer.first_name }}" style="width:100%">
+              </a>
+              <h3> <a href=" {{ url_for('Farmer.farmer_profile', username=col.farmer.username) }} "> {{ col.farmer.first_name }} {{ col.farmer.last_name }} </a> 
+              </h3>
+              <h4> {{ col.product_name }} </h4>
+              <p class="price"> {{ "R%.2f"|format( col.price|int ) }} </p>
+
+              {% if  current_user != col.farmer %}
+                {% if current_user.exist_in_cart( col.farmer.id, user_type = col.farmer.user_type ) %}
+                    <a href="{{ url_for('Farmer.delete_from_cart', seller_id = col.farmer.id, user_type = col.farmer.user_type) }}">  
+                          <button>Remove from Cart</button>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('Farmer.add_to_cart', seller_id = col.farmer.id, user_type = col.farmer.user_type ) }}">
+                          <button>Add to Cart</button>
+                    </a>
+                {% endif %}
+              {% endif %}
+                
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+  {% endfor %}
+</div>
+
+<br>
+
+  <!-- start pagination -->
+  <div>
+    <nav aria-label="...">
+      <ul class="pagination pagination-sm">
+        {% for page in products.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+          {% if page %}
+            {% if products.page == page %}
+            <li class="page-item active" aria-current="page"> <span class="page-link">{{ page }} </span> </li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="{{ url_for('Main.home', page=page) }}">{{ page }}</a></li>
+            {% endif %}
+          {% else %}
+            ...
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  <!-- end pagination -->
+
+
+        
+
+
+
+{% endblock body %}
+
+
+
+

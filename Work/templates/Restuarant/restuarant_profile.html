@@ -1,0 +1,117 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block navigation %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for( 'Main.home' ) }}">NextFarm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if current_user.user_type == 0 %}
+            <li class="nav-item">
+              <a class="nav-link" href=" {{ url_for('Farmer.farmer_profile', username = current_user.username) }} ">Profile</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href=" {{ url_for('Restuarant.restuarant_profile', username = current_user.username) }} ">Profile</a>
+            </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Auth.logout') }} ">Logout</a>
+          </li>
+        </ul>
+        <form class="d-flex"  action ="" method = 'POST'>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
+{% endblock navigation %}
+
+{% block body %}
+
+<hr>
+<div>
+  <h1> Personal Information </h1>
+  <strong> Name </strong> {{ restuarant.name }} <br>
+  <strong> Email </strong> {{ restuarant.email }} <br>
+  <strong> telephone number </strong> {{ restuarant.telephone }} <br>
+  <strong> Website </strong> {{ restuarant.website }} <br>
+  <strong> About </strong> {{ restuarant.about }} <br>
+  <strong> member since </strong> {{ restuarant.date_joined.strftime("%b-%d-%Y") }} <br>
+</div>
+
+
+<!-- Address Section -->
+<div>
+  <br>
+  <h2> Address Information</h2>
+  {% if restuarant.address %}
+    <strong> Province: </strong> {{ restuarant.address[0].province }} <br>
+    <strong> Town: </strong> {{ restuarant.address[0].town }} <br>
+    <strong> City: </strong> {{ restuarant.address[0].city }} <br>
+    <strong> Streat: </strong> {{ restuarant.address[0].streat_address }} <br>
+    <strong> Building: </strong> {{ restuarant.address[0].building_name }} <br>
+  {% else %}
+      {% if restuarant == current_user %}
+        <a href="{{ url_for('Product.address_registration') }}"> 
+          <button class="btn btn-outline-primary"> Add address </button>
+        </a>
+      {% else %}
+        <p> Oops No address information found</p>
+      {% endif %}
+  {% endif %}
+</div>
+<!-- End of Address Section -->
+
+<!-- Reviews section -->
+<div>
+  <br>
+  <h2> Reviews </h2>
+
+  {% if reviews %}
+      
+      {% macro display_comments(user_reviews, level=0) %}
+
+      <p> level: {{ level }}, author: {{ user_reviews.first_name }}, body:{{ user_reviews.body }}  </p>
+
+      {% for reply in user_reviews.replies %}
+          {{ display_comments( reply ,level+1) }}
+          
+      {% endfor %}
+
+      {% endmacro %}
+
+      {% for review in reviews %}
+          {{ display_comments(review) }}
+          <div>
+              <a href="{{ url_for('Farmer.farmer_review', username=restuarant.username, user_type=restuarant.user_type, parent_id=review.id )  }}"> Reply  </a>
+          </div>
+      {% endfor %}
+
+  {% else %}
+      <p> Oops This is empty </p>
+  {% endif %}
+  <div>
+      <a href="{{ url_for('Farmer.farmer_review', username=restuarant.username, user_type=restuarant.user_type, parent_id=0 )  }}">
+         <button class="btn btn-outline-primary"> Write a review </button>
+      </a>
+  </div>
+
+</div>
+<!-- End of reviews section -->
+{% endblock body %}
+
+
+
+

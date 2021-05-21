@@ -1,0 +1,10 @@
+{% block navigation %}
+
+<nav>
+    <a href=" {{ url_for('Main.home') }} "> Home </a> <br>
+    <a href=" {{ url_for('User.user_profile', username = user.username) }} "> Profile </a> <br>
+    <a href=" {{ url_for('Auth.logout') }} "> Logout </a> <br>
+    
+</nav>
+
+{% endblock navigation %}

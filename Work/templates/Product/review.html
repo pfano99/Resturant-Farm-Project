@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block navigation %}
+
+<nav>
+    <a href=" {{ url_for('Main.home') }} "> Home </a> <br>
+    <a href=" {{ url_for('Farmer.farmer_profile', username = current_user.username) }} "> Profile </a> <br>
+    <a href=" {{ url_for('Auth.logout') }} "> Logout </a> <br>
+    
+</nav>
+
+{% endblock navigation %}
+
+{% block body %}
+
+
+<div>
+    <form action="" method="POST" class="row g-3">
+        {{ form.hidden_tag() }}
+        
+        <div class="col-12">
+            {{ form.body.label(class="form-label") }}
+            {{ form.body(class="form-control") }}
+
+            {% if form.body.errors %}
+                {% for error in form.body.errors %}
+                    <span> {{ error }} </span> <br>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-6">
+        {{ form.submit(class="btn btn-outline-primary") }}
+        </div>
+
+    </form>
+</div>
+
+{% endblock body %}
+
+
+
+

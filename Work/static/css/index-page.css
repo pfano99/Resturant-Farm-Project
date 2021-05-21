@@ -1,0 +1,200 @@
+
+
+
+/* index section */
+.jumbotron {
+	background-image: url( "../background_img/bg-img.jpeg" );
+	background-size: cover;
+	color: #ffffff;
+	text-align: center;
+    height: 400px;
+}
+
+
+/* Index Section */
+.our-services{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+	text-transform: uppercase;
+}
+
+.our-services h2{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.serv-section1{
+	/* background-color:#2a8f2a ; */
+	color: #160a0a;
+	padding:10px;
+	text-transform: uppercase;
+	text-align: center;
+	border-right: 1px #000000 solid;
+	
+}
+
+.serv-section2:hover{
+	background-color:#000000 ;
+	color: #fff;
+	padding:10px;
+	text-transform: uppercase;
+	text-align: center;
+	border-right: 1px #000000 solid;
+	border-radius: 10px;
+}
+
+.serv-section1:hover{
+	background-color:#000000 ;
+	color: #fff;
+	padding:10px;
+	text-transform: uppercase;
+	text-align: center;
+	border-right: none;
+	border-radius: 10px;
+	
+}
+
+.serv-section2{
+	/* background-color:#2a8f2a ; */
+	color: #0e0909;
+	padding:10px;
+	text-transform: uppercase;
+	text-align: center;
+	
+}
+
+
+
+/* Index Section */
+.services-offered{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+
+/* Services offered Blocks */
+/* .serv-block1{
+	background-color:#2a8f2a ;
+	color: #ffffff;
+	padding:5px;
+	text-transform: uppercase;
+	text-align: center;
+	
+}
+
+.serv-block2{
+	background-color:#2a8f2a ;
+	color: #ffffff;
+	padding:5px;
+	text-transform: uppercase;
+	text-align: center;
+	
+} */
+
+.serv-block3{
+	background-color:#2a8f2a ;
+	color: #ffffff;
+	padding:5px;
+	text-transform: uppercase;
+	text-align: center;
+	
+}
+
+
+/* Index Section */
+.main-button {
+	color: #000000;
+	background-color: #1daba6;
+	border: none;
+	padding: 15px 30px;
+	margin: 20px;
+
+}
+
+.regular-button{
+
+	color: #000000;
+	background-color: #20790eb6;
+	border: none;
+	padding: 15px 30px;
+	margin: 20px;
+	border-radius: 10px;
+}
+
+.regular-button:hover{
+	font-weight: bolder;
+	color:  #20790eb6;
+	background-color: transparent;
+	border: 1px  #20790eb6 solid;
+	padding: 15px 30px;
+	margin: 20px;
+}
+
+
+.main-button:hover {
+	color: #2be76a;
+	background-color: transparent;
+	border: 1.5px #61eb11 solid;
+	border-radius: 0.4em;
+	padding: 15px 30px;
+
+}
+
+
+/* Index Section */
+
+.popular-jobs {
+	text-align: center;
+	margin-top:10px;
+	margin-bottom:10px;
+	text-transform: uppercase;
+    background-color: #a8dadc;
+}
+
+.popular-blocks {
+	/* background: rgb(247, 106, 81); */
+    color: #ffffff;
+	padding:2%;
+	/* border: 1px #000 solid; */
+	/* border-radius: 5px; */
+	margin-left: 4%;
+	margin-right: 4%;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+
+/* .popular-blocks:hover {
+	background: rgb(139, 134, 133);
+	color: #ffffff;
+} */
+
+.p-block1{
+    background-image: url('../temp_img/builder.jpg');
+}
+
+.p-block2{
+    background-image: url('../temp_img/gardener.jpeg');
+}
+
+.p-block3{
+    background-image: url('../temp_img/mechanic.jpg');
+}
+
+
+.tempo-state{
+	height : 500px;
+}
+
+
+.social-icons li{
+    display: inline;
+    list-style: none;
+    margin:5px;
+}
+

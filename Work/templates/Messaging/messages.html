@@ -1,0 +1,172 @@
+{% extends 'layout.html' %}
+
+
+{% block header_links %}
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chat.css') }}">
+ 
+{% endblock header_links %}
+
+
+
+{% block navigation %}
+<!-- Navigation section -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for( 'Main.home' ) }}">NextFarm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Farmer.farmer_profile', username = current_user.username) }} ">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Auth.logout') }} ">Logout</a>
+          </li>
+        </ul>
+        <form class="d-flex"  action ="" method='POST'>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+<!-- end of navigation section -->
+
+{% endblock navigation %}
+
+
+{% block body %}
+
+<!-- chat sesction -->
+<script src="https://use.fontawesome.com/45e03a14ce.js"></script>
+<div class="main_section">
+   <div class="container">
+      <div class="chat_container">
+         <div class="col-sm-3 chat_sidebar">
+    	 <div class="row">
+            <div id="custom-search-input">
+               <div class="input-group col-md-12">
+                  <input type="text" class="  search-query form-control" placeholder="Conversation" />
+                  <button class="btn btn-danger" type="button">
+                  <span class=" glyphicon glyphicon-search"></span>
+                  </button>
+               </div>
+            </div>
+            <div class="dropdown all_conversation">
+               <button class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i class="fa fa-weixin" aria-hidden="true"></i>
+               All Conversations
+               <span class="caret pull-right"></span>
+               </button>
+               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <li><a href="#"> All Conversation </a>  <ul class="sub_menu_ list-unstyled">
+                  <li><a href="#"> All Conversation </a> </li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#">Separated link</a></li>
+               </ul>
+			   </li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#">Separated link</a></li>
+               </ul>
+            </div>
+            <div class="member_list">
+               <ul class="list-unstyled">
+                  <li class="left clearfix">
+                     <span class="chat-img pull-left">
+                     <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                     <div class="chat-body clearfix">
+                        <div class="header_sec">
+                           <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                        </div>
+                        <div class="contact_sec">
+                           <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+            </div></div>
+         </div>
+         <!--chat_sidebar-->
+		 
+		 
+         <div class="col-sm-9 message_section">
+		 <div class="row">
+		 <div class="new_message_head">
+		 <div class="pull-left"><button><i class="fa fa-plus-square-o" aria-hidden="true"></i> New Message</button></div><div class="pull-right"><div class="dropdown">
+  <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fa fa-cogs" aria-hidden="true"></i>  Setting
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="#">Logout</a></li>
+  </ul>
+</div></div>
+		 </div><!--new_message_head-->
+		 
+		 <div class="chat_area">
+		 <ul class="list-unstyled">
+            {% for message in messages %}
+            {% if message.sender_id == current_user.id or message.comp_sender_id == current_user.id %}
+            
+                <li class="left clearfix admin_chat">
+                    <span class="chat-img1 pull-right">
+                        <img src="{{ url_for('static', filename='profile_pictures/' + current_user.profile_picture) }}" alt="User Avatar" class="img-circle">
+                    </span>
+                    <div class="chat-body1 clearfix">
+                        <p>{{ message.body }}</p>
+                        <div class="chat_time pull-left">{{ message.timestamp.strftime("%H:%M") }}</div>
+                    </div>
+                </li>
+                {% else %}
+                <li class="left clearfix">
+                    <span class="chat-img1 pull-left">
+                        {% if recipient_type == 0 %}
+                            <img src="{{ url_for('static', filename='profile_pictures/' + message.author.profile_picture) }}" alt="User Avatar" class="img-circle">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='profile_pictures/' + message.company.company_logo) }}" alt="User Avatar" class="img-circle">
+                        {% endif %}
+                    </span>
+                    <div class="chat-body1 clearfix">
+                    <p>{{ message.body }}</p>
+                    <div class="chat_time pull-right">{{ message.timestamp.strftime("%H:%M") }}</div>
+                    </div>
+                </li>
+            {% endif %}
+            {% endfor %}
+		 </ul>
+		 </div><!--chat_area-->
+          <div class="message_write">
+
+            <form action="" method="POST">
+            
+                {{ form.hidden_tag() }}
+                {{ form.message.label() }}
+    
+                {{ form.message(class="form-control") }}
+    
+                <div class="clearfix"></div>
+                <div class="chat_bottom"><a href="#" class="pull-left upload_btn">
+                {{ form.submit(class="pull-right btn btn-success") }}
+                </div>
+            </form>
+        </div>
+		 </div>
+         </div> <!--message_section-->
+      </div>
+   </div>
+</div>
+
+
+{% endblock body %}

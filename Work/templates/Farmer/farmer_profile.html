@@ -1,0 +1,297 @@
+{% extends 'layout.html' %}
+
+{% block header_links %}
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/reviews.css') }}">
+
+{% endblock %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block navigation %}
+<!-- start navigations  -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for( 'Main.home' ) }}">NextFarm</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if current_user == user and current_user.offer_services %}
+                <li class="nav-item">
+                <a class="nav-link" href=" {{ url_for('Farmer.farmer_dashboard', username=user.username) }} ">DashBoard</a>
+                </li>
+            {% endif %}
+            {% if current_user == user and not current_user.offer_services %}
+                <li class="nav-item">
+                    <a class="nav-link" href=" {{ url_for('Product.add_product') }} ">Add Product</a>
+                </li>
+            {% endif %}    
+            <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Auth.logout') }} ">Logout</a>
+            </li>
+        </ul>
+        <form class="d-flex"  action ="" method = 'POST'>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+    </div>
+</nav>
+    <!-- --------------------------------- end  navigations  -->
+
+{% endblock navigation %}
+
+
+
+
+{% block header %}
+
+   
+
+
+{% endblock header %}
+
+
+{% block body %}
+
+<!-- user profile top section  -->
+<div class="row py-3 px-2">
+    <div class="col-md-12 mx-auto">
+        <div class="bg-white shadow rounded overflow-hidden">
+            <div class="px-4 pt-0 pb-4 cover">
+                <div class="media align-items-end profile-head">
+                    <div class="profile mr-3"><img src="{{ url_for('static', filename='profile_pictures/' + user.profile_picture) }}" alt="..." width="130" class="rounded mb-2 img-thumbnail"></div>
+                    <div class="media-body mb-5 text-white">
+                        <h4 class="mt-0 mb-0">{{ user.first_name }} {{ user.last_name }} </h4> 
+                        <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i> {{ user.gender }} </p>
+                       <br>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">
+                            <a href="{{ url_for('Chat.send_message', recipient_username=user.username, recipient_type=user.user_type) }}">Message</a>
+                        </h5>
+                    </li>
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">
+                            <a href="{{ url_for('Chat.send_message', recipient_username=user.username, recipient_type=user.user_type) }}">Add to cart</a>
+                        </h5>
+                    </li>
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">
+                            <a href="{{ url_for('Chat.send_message', recipient_username=user.username, recipient_type=user.user_type) }}">Share</a>
+                        </h5>
+                    </li>
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">
+                            <a href="{{ url_for('Chat.send_message', recipient_username=user.username, recipient_type=user.user_type) }}">Report</a>
+                        </h5>
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- end of user profile top-section -->
+ 
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          About
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            {% if user.about_me %}
+                {{ user.about_me }}
+            {% else %}
+                Oops. Empty
+            {% endif %}
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<!--   User Address Section -->
+<div>
+    <br>
+    <h2> Address information </h2>
+    {% if address %}
+        {{ address }}
+
+    {% else %}
+        {% if user == current_user %}
+            <a href="{{ url_for('Product.address_registration') }}">Address information</a>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+
+<!--   End of User Address Section -->
+
+<div>
+    <br>
+    <hr>
+    <br>
+</div>
+
+<!-- update user profile information forms Section-->
+{% if current_user == user %}
+
+    <div>
+        <fieldset  class="border p-2 form-group">
+        <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
+            {{ form.hidden_tag() }}
+
+            <div class="col-12">
+                {{ form.profile_picture.label(class="form-label") }}
+                {{ form.profile_picture(class="form-control") }}
+
+                {% if form.profile_picture.errors %}
+                    {% for error in form.profile_picture.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+                
+            </div>
+
+            <div class="col-md-6">
+                {{ form.first_name.label(class="form-label") }}
+                {{ form.first_name(class="form-control") }}
+            
+                {% if form.first_name.errors %}
+                    {% for error in form.first_name.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                {{ form.last_name.label(class="form-label") }}
+                {{ form.last_name(class="form-control") }}
+            
+                {% if form.last_name.errors %}
+                    {% for error in form.last_name.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+
+                {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                {{ form.telephone.label(class="form-label") }}
+                {{ form.telephone(class="form-control") }}
+
+                {% if form.telephone.errors %}
+                    {% for error in form.telephone.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-12">
+                {{ form.about_me.label(class="form-label") }}
+                {{ form.about_me(class="form-control") }} 
+
+                {% if form.about_me.errors %}
+                    {% for error in form.about_me.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+            </div>           
+
+            <div class="col-12">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+            
+        </fieldset>
+    </div>
+
+    <div>
+        <br>
+        <hr>
+        <br>
+    </div>
+{% endif %}
+
+
+<div >
+    <h3> Services Offered </h3>
+    {% if user.offer_services == 1 %}
+
+        <strong>Product:</strong> {{ service.product_name }} <br>
+        <strong>Price R:</strong> {{ service.price }} <br>
+        <strong>Stock Available:</strong> {{ service.stock_count }} <br> 
+        <strong>Category:</strong> {{ service.category }} <br>
+
+    {% else %}
+        {% if user == current_user %}
+            <a href="{{ url_for('Product.add_product') }}">
+                <button class="regular-button"> Register Services </button>
+            </a>
+        {% endif %}
+    {% endif %}
+</div>
+
+<div>
+
+    <h2> Reviews </h2>
+
+
+    {% if reviews %}
+        
+        {% macro display_comments(user_reviews, level=0) %}
+
+        <p> level: {{ level }}, author: {{ user_reviews.first_name }}, body:{{ user_reviews.body }}  </p>
+
+        {% for reply in user_reviews.replies %}
+            {{ display_comments( reply ,level+1) }}
+            
+        {% endfor %}
+
+        {% endmacro %}
+
+        {% for review in reviews %}
+            {{ display_comments(review) }}
+            <div>
+                <a href="{{ url_for('Farmer.farmer_review', username=user.username, user_type=user.user_type, parent_id=review.id )  }}"> Reply  </a>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <p> Oops This is empty </p>
+    {% endif %}
+    <div>
+        <a href="{{ url_for('Farmer.farmer_review', username=user.username, user_type=user.user_type, parent_id=0 )  }}"> Write a review  </a>
+    </div>
+
+</div>
+
+
+{% endblock body %}
+
+
+
+

@@ -1,0 +1,114 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block navigation %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for( 'Main.home' ) }}">NextFarm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Farmer.farmer_profile', username = current_user.username) }} ">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Auth.logout') }} ">Logout</a>
+          </li>
+        </ul>
+        <form class="d-flex"  action ="" method = 'POST'>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
+{% endblock navigation %}
+
+{% block body %}
+
+<div>
+    <br>
+    <hr>
+    <br>
+</div>
+
+
+    <div>
+        <form action="" method="POST" class="row g-3">
+            {{ form.hidden_tag() }}
+
+            <div class="col-md-6">
+                {{ form.town.label(class="form-label") }}
+                {{ form.town(class="form-control")  }}
+
+                {% if form.town.errors %}
+                        {% for error in form.town.errors %}
+                            <span> {{ error }} </span> <br>
+                        {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                {{ form.province.label(class="form-label") }}
+                {{ form.province(class="form-control form-select")  }}
+
+                {% if form.province.errors %}
+                        {% for error in form.province.errors %}
+                            <span> {{ error }} </span> <br>
+                        {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                {{ form.suburb.label(class="form-label") }}
+                {{ form.suburb(class="form-control") }} 
+
+                {% if form.suburb.errors %}
+                        {% for error in form.suburb.errors %}
+                            <span> {{ error }} </span> <br>
+                        {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                {{ form.building_name.label(class="form-label") }}
+                {{ form.building_name(class="form-control") }} 
+
+                {% if form.building_name.errors %}
+                    {% for error in form.building_name.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-md-12">
+                {{ form.streat_address.label(class="form-label") }}
+                {{ form.streat_address(class="form-control") }} 
+
+                {% if form.streat_address.errors %}
+                        {% for error in form.streat_address.errors %}
+                            <span> {{ error }} </span> <br>
+                        {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-12">
+                {{ form.submit(class="btn btn-primary") }} 
+            </div>
+            
+        </form>
+    </div>
+
+{% endblock body %}
+
+
+
+

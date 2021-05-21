@@ -1,0 +1,222 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block navigation %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light top-fixed-pos">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for( 'Main.index' ) }}">NextFarm</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('Auth.farmer_register') }} "> Join </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href=" {{ url_for('Auth.farmer_login') }} ">Sign In</a>
+            </li>   
+            <li class="nav-item">
+            <a class="nav-link" href="#">Our Services</a>
+            </li>
+
+        </ul>
+        <form class="d-flex"  action ="" method = 'POST'>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+    </div>
+</nav>
+
+{% endblock navigation %}
+
+
+{% block header %}
+
+    <div class="jumbotron jumbotron-fluid">
+        <h1 class="display-4">Hello, world!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg main-button " href="#" role="button">Join Today</a>
+        </p>
+    </div>
+
+{% endblock header %}
+
+
+{% block body %}
+
+
+    <div class="clr"></div>
+    <div class="popular-jobs" >
+        <h2> Popular Jobs </h2>
+    
+        <div class="row">
+            <div class="shadow-lg col-md-3 popular-blocks p-block1">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi adipisci eos possimus.
+                    Suscipit dolore veritatis ipsa eius mollitia deleniti placeat dignissimos,
+                    quidem odio nulla fugit, blanditiis voluptates velit hic quis.
+                </p>
+            </div>
+
+            <div class="shadow-lg col-md-3 popular-blocks p-block2">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi adipisci eos possimus.
+                    Suscipit dolore veritatis ipsa eius mollitia deleniti placeat dignissimos,
+                    quidem odio nulla fugit, blanditiis voluptates velit hic quis.
+                </p>
+            </div>
+
+            <div class="shadow-lg col-md-3 popular-blocks p-block3">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi adipisci eos possimus.
+                    Suscipit dolore veritatis ipsa eius mollitia deleniti placeat dignissimos,
+                    quidem odio nulla fugit, blanditiis voluptates velit hic quis.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+    <div class="clr"></div>
+
+    
+    
+
+    <!-- <div class="tempo-state"></div> -->
+
+    <div class="our-services">
+        <h2> Our Services </h2>
+        <div class="row">
+            <div class="col-md-8 serv-section1">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, numquam. Minus consectetur labore dolore!
+                    Repudiandae nam ad nobis alias deleniti neque labore odit reiciendis,
+                    voluptatibus consequuntur dolore cumque corporis doloribus?
+                </p>
+            </div>
+            <div class="col-md-4 serv-section2">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, numquam. Minus consectetur labore dolore!
+                    Repudiandae nam ad nobis alias deleniti neque labore odit reiciendis,
+                    voluptatibus consequuntur dolore cumque corporis doloribus?
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Offered Section -->
+    <div class="clr"></div>
+    <div class="popular-jobs" >
+        <h2> Services Offered </h2>
+    </div class="services-offered">
+        <div class="row">
+            <div class="shadow-lg col-md-3 popular-blocks">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi adipisci eos possimus.
+                    Suscipit dolore veritatis ipsa eius mollitia deleniti placeat dignissimos,
+                    quidem odio nulla fugit, blanditiis voluptates velit hic quis.
+                </p>
+            </div>
+
+            <div class="shadow-lg col-md-3 popular-blocks">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi adipisci eos possimus.
+                    Suscipit dolore veritatis ipsa eius mollitia deleniti placeat dignissimos,
+                    quidem odio nulla fugit, blanditiis voluptates velit hic quis.
+                </p>
+            </div>
+
+            <div class="shadow-lg col-md-3 popular-blocks">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi adipisci eos possimus.
+                    Suscipit dolore veritatis ipsa eius mollitia deleniti placeat dignissimos,
+                    quidem odio nulla fugit, blanditiis voluptates velit hic quis.
+                </p>
+            </div>
+        </div>
+    <!-- </div> -->
+    <div class="clr"></div>
+
+    <!-- <div class="tempo-state"></div> -->
+
+    <div class="our-services">
+        <h2> Our Services </h2>
+        <div class="row">
+            <div class="col-md-4 serv-section1">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, numquam. Minus consectetur labore dolore!
+                    Repudiandae nam ad nobis alias deleniti neque labore odit reiciendis,
+                    voluptatibus consequuntur dolore cumque corporis doloribus?
+                </p>
+            </div>
+            <div class="col-md-8 serv-section2">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, numquam. Minus consectetur labore dolore!
+                    Repudiandae nam ad nobis alias deleniti neque labore odit reiciendis,
+                    voluptatibus consequuntur dolore cumque corporis doloribus?
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+<!-- ###########################################################################################################################
+        ############################# Footer Section #########################################
+###########################################################################################################################- -->
+
+{% block footer %}
+
+<div class="serv-info">
+    
+    <div class="row">
+
+        <div class="col-md-4">
+            <ul>
+                <li>item 1</li>
+                <li>item 1</li>
+                <li>item 1</li>
+                <li>item 1</li>
+                <li>item 1</li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <ul>
+                <li>item 1</li>
+                <li>item 1</li>
+                <li>item 1</li>
+                <li>item 1</li>
+                <li>item 1</li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <h3> Contact Us</h3>
+            <p> <img src="{{ url_for('static', filename='icons/envelope-open.svg') }}">  nextfarm@email.com </p>
+            <p> <img src="{{ url_for('static', filename='icons/telephone-fill.svg') }}">  +27-123123434 </p> 
+            <h3> Follow Us </h3> 
+            <ul class="social-icons">
+                <li><img src="{{ url_for('static', filename='icons/facebook.svg') }}"> </li>
+                <li><img src="{{ url_for('static', filename='icons/twitter.svg') }}">  </li>
+                <li><img src="{{ url_for('static', filename='icons/linkedin.svg') }}"> </li>
+                <li><img src="{{ url_for('static', filename='icons/instagram.svg') }}"></li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="main-button" > Register and join </button>
+</div>
+
+{% endblock footer %}

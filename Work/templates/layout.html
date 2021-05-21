@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom_main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index-page.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/footer-sec.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/user_profile.css') }}">
+    {% block header_links %}
+    {% endblock %}
+    
+    <title> {% block title %} {% endblock %} </title>
+</head>
+<body>
+    
+
+    {% block navigation %} 
+    {% endblock %}
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{category}}" role="alert">
+                        {{ message }}
+                    </div>   
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+
+    <div class='container'>
+        {% block body %} {% endblock %}
+    </div>
+    
+    <footer>
+        {% block footer %}
+        {% endblock %}
+    </footer>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}" >  </script>
+</body>
+</html>
